@@ -7,6 +7,7 @@
 #' @param beta0: true beta values
 #' @param G: indices of subgroups
 #' @return a list of coverage, lower bound and bound length
+#' @export
 #'
 BSciCoverfunNaive <- function(Lowerbound, beta0, G){
 
