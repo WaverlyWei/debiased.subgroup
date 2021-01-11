@@ -15,7 +15,9 @@ sigmaMatNew <- function(p, type){
 
     diag(Sigma) <- 1
 
-  }if(type == "toeplitz3"){
+  }
+
+  if(type == "toeplitz3"){
 
     Sigma <- matrix(data = 0, nrow = p, ncol = p)
 
@@ -23,7 +25,9 @@ sigmaMatNew <- function(p, type){
 
     Sigma <- 0.3^(toeplitz(p.vec)-1)
 
-  }if(type == "toeplitz5"){
+  }
+
+  if(type == "toeplitz5"){
 
     Sigma <- matrix(data = 0, nrow = p, ncol = p)
 
@@ -31,7 +35,9 @@ sigmaMatNew <- function(p, type){
 
     Sigma <- 0.5^(toeplitz(p.vec)-1)
 
-  }if(type == "toeplitz9"){
+  }
+
+  if(type == "toeplitz9"){
 
     Sigma <- matrix(data = 0, nrow = p, ncol = p)
 
@@ -39,7 +45,9 @@ sigmaMatNew <- function(p, type){
 
     Sigma <- 0.9^(toeplitz(p.vec)-1)
 
-  }if(type == "block"){
+  }
+
+  if(type == "block"){
 
     Sigma <- matrix(data = 0, nrow = p, ncol = p)
 
