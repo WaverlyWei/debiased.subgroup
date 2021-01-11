@@ -1,23 +1,28 @@
 #'variance calculation
+#'
+#'@param Ycount y variable
+#'@param alphaEst estimated values
+#'@param n sample size
+#'@param splitSize size of each split
 #' @export
 
 
-IFvarestbiascorr <- function(Y.count, alpha.est, n, split.size){
+IFvarestbiascorr <- function(Ycount, alphaEst, n, splitSize){
 
-  n <- length(Y.count[1,]) # only filtered beta's
+  n <- length(Ycount[1,]) # only filtered beta's
 
-  Brep <- length(alpha.est)
+  Brep <- length(alphaEst)
 
-  n2 <- n-split.size
+  n2 <- n - splitSize
 
-  cov.vec <- t(sweep(Y.count, 2, apply(Y.count, 2, mean))) *
-    (alpha.est - mean(alpha.est))/Brep
+  cov.vec <- t(sweep(Ycount, 2, apply(Ycount, 2, mean))) *
+    (alphaEst - mean(alphaEst))/Brep
 
-  var.bias <- sum((alpha.est - mean(alpha.est))^2 )/Brep^2 * n  * n2/(n-n2)
+  var.bias <- sum((alphaEst - mean(alphaEst))^2 )/Brep^2 * n  * n2/(n-n2)
 
   var.est <- (sum(cov.vec^2))
 
-  r.corr <- (n/split.size)^2 * ((n-1)/n)^2
+  r.corr <- (n/splitSize)^2 * ((n-1)/n)^2
 
   var.est0 <- var.est * r.corr
 
