@@ -6,16 +6,15 @@
 #' @param G: subgroup indicator
 #' @param B: bootstrap number
 #' @param BB: split number
-#' @param beta0: true value for beta0
 #' @param alpha: level  ## change other places
-#' @param split.ratio: split ratio # modify this
+#' @param splitRatio: split ratio
 #' @return
 #' coverage: boolean value
 #' LowerBound: lower bound
 #' Length: lower bound length
 #' betaEst: beta estimates
 #' op: optimal tuning index
-BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
+BSSplitLasso <- function(y, x, r, G, B, BB, alpha, splitRatio){
 
   p <- length(x[1,])
 
@@ -25,7 +24,7 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
   cc <- length(r)
 
-  nsub <- round(n*ratio)
+  nsub <- round(n*splitRatio)
 
   #only select the confounders
   penalty <- rep(0,p)
@@ -52,23 +51,23 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
     index <- sample(1:n,nsub)
 
     #selection sample
-    ys <- y[index]
+    ytrain <- y[index]
 
-    xs <- x[index,]
+    xtrain <- x[index,]
 
     #refitting sample  # more natural choice
-    yf <- y[-index]
+    ytest <- y[-index]
 
-    xf <- x[-index,] #120
+    xtest <- x[-index,] #120
 
     #adaptive lasso
-    fit.ridge <- cv.glmnet(x = xs,
-                           y=ys,
+    fit.ridge <- cv.glmnet(x = xtrain,
+                           y=ytrain,
                            penalty.factor = penalty, alpha=0)
 
     beta.ridge <- coef(fit.ridge, s= "lambda.min")[-1]
 
-    fit.lasso <- cv.glmnet(x = xs, y = ys, penalty.factor = penalty/abs(beta.ridge))
+    fit.lasso <- cv.glmnet(x = xtrain, y = ytrain, penalty.factor = penalty/abs(beta.ridge))
 
     # model size bounds
     modIdx <- (fit.lasso$nzero>(1+k))&(fit.lasso$nzero<(k+5+k))
@@ -90,13 +89,13 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
     modelSize[b] <- length(set1) # record model size
 
     #refit estimate
-    refit_est <- lm(yf~xf[,G]+xf[,set1])$coef[2:(k+1)]
+    refit_est <- lm(ytest~xtest[,G]+xtest[,set1])$coef[2:(k+1)]
 
     est[b,] <- refit_est
 
     # collect refit estimate,and take out large coeffecients
     # add a filter here
-    ZZ <- cbind(xf[,G],xf[,set1])
+    ZZ <- cbind(xtest[,G],xtest[,set1])
 
     Delta0 <- matrix(0,k,p) ## NOTE: consistent with the paper
 
@@ -151,9 +150,9 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
     r0 <- r[i]
 
-    r_op <- r0/sqrt(k/2) # NOTE: change to r.p
+    rp <- r0/sqrt(k/2) # NOTE: change to r.p
 
-    c_op[i,] <- (1-n^(r_op-0.5))*(max(gamma.lasso)-gamma.lasso)
+    c_op[i,] <- (1-n^(rp-0.5))*(max(gamma.lasso)-gamma.lasso)
   }
 
   for(i in 1:B) {
@@ -176,15 +175,15 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
   ll <- 2
 
-  op <- cvSplit(y, x, r, G, B, BB, ratio, ll)
+  op <- cvSplit(y, x, r, G, B, BB, splitRatio, ll)
 
   result <- list()
 
   for(j in 1:(cc+1)) {
-    result[j] <- list(c(BSciCoverfun(gamma.lasso, TB[,j], beta0, G, alpha0),
+    result[j] <- list(c(BSciCoverfun(gamma.lasso, TB[,j], beta0, G, alpha),
                         # beta0 needs to be removed
                         # give two bounds
-                        # NOTE:gamma.lasso needs to be changed
+                        # NOTE:gamma.lasso needs to be changed to beta.lasso?
                         betaEst = list(gamma.lasso),
                         modelSize = list(modelSize),
                         op = op))
@@ -192,12 +191,12 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
   if(is.integer(op) && length(op)==1){
 
-    result[j+1] <- list(c(BSciCoverfun(gamma.lasso, TB_op[,op], beta0, G, alpha0),
+    result[j+1] <- list(c(BSciCoverfun(gamma.lasso, TB_op[,op], beta0, G, alpha),
                           betaEst = list(gamma.lasso),
                           modelSize = list(modelSize),
                           op = op))
   }else{
-    result[j+1] = list(c(BSciCoverfun(gamma.lasso, TB[,cc], beta0, G, alpha0),
+    result[j+1] = list(c(BSciCoverfun(gamma.lasso, TB[,cc], beta0, G, alpha),
                          betaEst = list(gamma.lasso),
                          modelSize = list(modelSize),
                          op = op))
