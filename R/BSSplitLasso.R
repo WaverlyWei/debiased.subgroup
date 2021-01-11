@@ -7,8 +7,8 @@
 #' @param B: bootstrap number
 #' @param BB: split number
 #' @param beta0: true value for beta0
-#' @param alpha0: leval of CI
-#' @param ratio: split ratio
+#' @param alpha: level  ## change other places
+#' @param split.ratio: split ratio # modify this
 #' @return
 #' coverage: boolean value
 #' LowerBound: lower bound
@@ -56,7 +56,7 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
     xs <- x[index,]
 
-    #refitting sample
+    #refitting sample  # more natural choice
     yf <- y[-index]
 
     xf <- x[-index,] #120
@@ -98,9 +98,9 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
     # add a filter here
     ZZ <- cbind(xf[,G],xf[,set1])
 
-    Delta0 <- matrix(0,k,p)
+    Delta0 <- matrix(0,k,p) ## NOTE: consistent with the paper
 
-    Delta0[,union(G,set1)] <- solve(t(ZZ)%*%ZZ/(n-n4))[G,]
+    Delta0[,union(G,set1)] <- solve(t(ZZ)%*%ZZ/(n-n4))[G,] # n4 to nsub
 
     Delta <- Delta + Delta0
   }
@@ -151,7 +151,7 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
     r0 <- r[i]
 
-    r_op <- r0/sqrt(k/2)
+    r_op <- r0/sqrt(k/2) # NOTE: change to r.p
 
     c_op[i,] <- (1-n^(r_op-0.5))*(max(gamma.lasso)-gamma.lasso)
   }
@@ -182,6 +182,9 @@ BSSplitLasso <- function(y, x, r, G, B, BB, beta0, alpha0, ratio){
 
   for(j in 1:(cc+1)) {
     result[j] <- list(c(BSciCoverfun(gamma.lasso, TB[,j], beta0, G, alpha0),
+                        # beta0 needs to be removed
+                        # give two bounds
+                        # NOTE:gamma.lasso needs to be changed
                         betaEst = list(gamma.lasso),
                         modelSize = list(modelSize),
                         op = op))
