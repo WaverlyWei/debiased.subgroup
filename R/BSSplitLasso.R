@@ -14,7 +14,13 @@
 #' Length: lower bound length
 #' betaEst: beta estimates
 #' op: optimal tuning index
-BSSplitLasso <- function(y, x, r, G, B, BB, alpha, splitRatio){
+BSSplitLasso <- function(y, x,
+                         r = NULL,
+                         G = NULL,
+                         B = NULL,
+                         BB = NULL,
+                         alpha = 0.95,
+                        splitRatio = 0.6){
 
   p <- length(x[1,])
 
