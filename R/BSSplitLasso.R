@@ -14,13 +14,15 @@
 #' Length: lower bound length
 #' betaEst: beta estimates
 #' op: optimal tuning index
+#' fold:cross validation fold
 BSSplitLasso <- function(y, x,
                          r = NULL,
                          G = NULL,
                          B = NULL,
                          BB = NULL,
                          alpha = 0.95,
-                        splitRatio = 0.6){
+                        splitRatio = 0.6,
+                        fold = 2){
 
   p <- length(x[1,])
 
@@ -42,7 +44,7 @@ BSSplitLasso <- function(y, x,
   for(i in 1:p)
     x[,i] <- x[,i]-mean(x[,i])
 
-  gamma.lasso <- 0
+  gamma.lasso <- 0 # change this to beta?
 
   Delta <- 0
 
@@ -82,13 +84,13 @@ BSSplitLasso <- function(y, x,
 
     mcvError <- fit.lasso$cvm[modIdx]
 
-    # optimal set
+    # selection set
     ss <- ss1[which.min(mcvError)]
 
     # selection set
-    beta.lasso <- coef(fit.lasso, s = ss)[2:(p+1)] # remove intercept
+    gamma.lasso <- coef(fit.lasso, s = ss)[2:(p+1)] # remove intercept
 
-    set1 <- setdiff(which(beta.lasso!=0), G)
+    set1 <- setdiff(which(gamma.lasso!=0), G)
 
     set1 <- sort(set1)
 
@@ -103,9 +105,9 @@ BSSplitLasso <- function(y, x,
     # add a filter here
     ZZ <- cbind(xtest[,G],xtest[,set1])
 
-    Delta0 <- matrix(0,k,p) ## NOTE: consistent with the paper
+    Delta0 <- matrix(0,k,p)
 
-    Delta0[,union(G,set1)] <- solve(t(ZZ)%*%ZZ/(n-nsub))[G,] # nsub to nsub
+    Delta0[,union(G,set1)] <- solve(t(ZZ)%*%ZZ/(n-nsub))[G,]
 
     Delta <- Delta + Delta0
   }
@@ -113,20 +115,20 @@ BSSplitLasso <- function(y, x,
   # filter results
   filtered_index <- apply( est, 2, function(x) order(x)[ceiling(( (1-0.95)*nrow(est))):(floor((1-0.05)*nrow(est)))])
 
-  filtered_gamma <- NULL
+  filtered_beta <- NULL
 
   for(i in 1:k){
-    filtered_gamma[i]<- mean(est[filtered_index[,i],i])
+    filtered_beta[i]<- mean(est[filtered_index[,i],i])
   }
 
   Delta <- Delta/BB
 
-  gamma.lasso <- filtered_gamma
+  beta.lasso <- filtered_beta
 
   #get the residual for boostrap
   fit.lasso <- cv.glmnet(x = x, y = y)
 
-  beta.lasso <- coef(fit.lasso, s = "lambda.min")
+  gamma.lasso <- coef(fit.lasso, s = "lambda.min")
 
   pred <- beta.lest[1] + x%*%beta.lest[-1]
 
@@ -142,11 +144,11 @@ BSSplitLasso <- function(y, x,
 
     r0 <- r[i]
 
-    correction[i,] <- (1-n^(r0-0.5))*(max(gamma.lasso)-gamma.lasso)
+    correction[i,] <- (1-n^(r0-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
   # simultaneous one for R-split
-  c[cc+1,] <- (max(gamma.lasso)-gamma.lasso)
+  c[cc+1,] <- (max(beta.lasso)-beta.lasso)
 
   TB_op <- matrix(0, B, cc)
 
@@ -158,7 +160,7 @@ BSSplitLasso <- function(y, x,
 
     rp <- r0/sqrt(k/2) # NOTE: change to r.p
 
-    c_op[i,] <- (1-n^(rp-0.5))*(max(gamma.lasso)-gamma.lasso)
+    c_op[i,] <- (1-n^(rp-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
   for(i in 1:B) {
@@ -166,44 +168,40 @@ BSSplitLasso <- function(y, x,
     #generate bootstrap estimate
     Bepsilion <- as.matrix(rnorm(n)*epsilion,n,1)
 
-    Bgamma.lasso <- gamma.lasso+Delta %*% t(cbind(x[,G],x[,-G])) %*% Bepsilion/n
+    Bbeta.lasso <- beta.lasso+Delta %*% t(cbind(x[,G],x[,-G])) %*% Bepsilion/n
 
     #correct maximum quantity
     for(j in 1:(cc+1)){
 
-      TB[i,j] <- max(Bgamma.lasso+c[j,])-max(gamma.lasso)
+      TB[i,j] <- max(Bbeta.lasso+c[j,])-max(beta.lasso)
     }
 
     for(j in 1:(cc)){
-      TB_op[i,j] <- max(Bgamma.lasso+c_op[j,])-max(gamma.lasso)
+      TB_op[i,j] <- max(Bbeta.lasso+c_op[j,])-max(beta.lasso)
     }
   }
 
-  ll <- 2
 
-  op <- cvSplit(y, x, r, G, B, BB, splitRatio, ll)
+  op <- cvSplit(y, x, r, G, B, BB, splitRatio, fold)
 
   result <- list()
 
   for(j in 1:(cc+1)) {
-    result[j] <- list(c(BSciCoverfun(gamma.lasso, TB[,j], G, alpha),
-                        # beta0 needs to be removed
-                        # give two bounds
-                        # NOTE:gamma.lasso needs to be changed to beta.lasso?
-                        betaEst = list(gamma.lasso),
+    result[j] <- list(c(BSciCoverfun(beta.lasso, TB[,j], G, alpha),
+                        betaEst = list(beta.lasso),
                         modelSize = list(modelSize),
                         op = op))
   }
 
   if(is.integer(op) && length(op)==1){
 
-    result[j+1] <- list(c(BSciCoverfun(gamma.lasso, TB_op[,op],G, alpha),
-                          betaEst = list(gamma.lasso),
+    result[j+1] <- list(c(BSciCoverfun(beta.lasso, TB_op[,op],G, alpha),
+                          betaEst = list(beta.lasso),
                           modelSize = list(modelSize),
                           op = op))
   }else{
-    result[j+1] = list(c(BSciCoverfun(gamma.lasso, TB[,cc], G, alpha),
-                         betaEst = list(gamma.lasso),
+    result[j+1] = list(c(BSciCoverfun(beta.lasso, TB[,cc], G, alpha),
+                         betaEst = list(beta.lasso),
                          modelSize = list(modelSize),
                          op = op))
   }
