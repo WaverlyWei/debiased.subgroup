@@ -5,7 +5,6 @@
 #'  @param r: tuning parameter
 #'  @param G: subgroup indicator
 #'  @param B: bootstrap iterations
-#'  @param beta0: true beta values
 #'  @param alpha0: level of CI
 #'  @return
 #'  coverage: boolean value
@@ -15,7 +14,7 @@
 #'  modelSize: selected model size as a reference
 #'  op: index of the tuning parameter
 #' @export
-BSDesparseLasso <- function(y, x, r, G, B, beta0, alpha0){
+BSDesparseLasso <- function(y, x, r, G, B, alpha0){
 
 
   # Length: length of the lower bound
@@ -149,19 +148,19 @@ BSDesparseLasso <- function(y, x, r, G, B, beta0, alpha0){
 
   for(j in 1:(cc+1)) {
 
-    result[j] = list(c(BSciCoverfun(gamma.dest, TB[,j], beta0, G, alpha0),
+    result[j] = list(c(BSciCoverfun(gamma.dest, TB[,j], G, alpha0),
                        betaEst = list(gamma.dest),
                        modelSize = list(modelSize),
                        op = op))
   }
 
   if(is.integer(op)){
-    result[j+1] = list(c(BSciCoverfun(gamma.dest, TB_op[,op], beta0, G, alpha0),
+    result[j+1] = list(c(BSciCoverfun(gamma.dest, TB_op[,op], G, alpha0),
                          betaEst = list(gamma.dest),
                          modelSize = list(modelSize),
                          op = op))
   }else{
-    result[j+1] = list(c(BSciCoverfun(gamma.dest, TB[,cc], beta0, G, alpha0),
+    result[j+1] = list(c(BSciCoverfun(gamma.dest, TB[,cc], G, alpha0),
                          betaEst = list(gamma.dest),
                          modelSize = list(modelSize),
                          op = op))
