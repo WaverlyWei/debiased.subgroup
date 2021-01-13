@@ -105,7 +105,7 @@ BSSplitLasso <- function(y, x,
 
     Delta0 <- matrix(0,k,p) ## NOTE: consistent with the paper
 
-    Delta0[,union(G,set1)] <- solve(t(ZZ)%*%ZZ/(n-n4))[G,] # n4 to nsub
+    Delta0[,union(G,set1)] <- solve(t(ZZ)%*%ZZ/(n-nsub))[G,] # nsub to nsub
 
     Delta <- Delta + Delta0
   }
@@ -186,7 +186,7 @@ BSSplitLasso <- function(y, x,
   result <- list()
 
   for(j in 1:(cc+1)) {
-    result[j] <- list(c(BSciCoverfun(gamma.lasso, TB[,j], beta0, G, alpha),
+    result[j] <- list(c(BSciCoverfun(gamma.lasso, TB[,j], G, alpha),
                         # beta0 needs to be removed
                         # give two bounds
                         # NOTE:gamma.lasso needs to be changed to beta.lasso?
@@ -197,12 +197,12 @@ BSSplitLasso <- function(y, x,
 
   if(is.integer(op) && length(op)==1){
 
-    result[j+1] <- list(c(BSciCoverfun(gamma.lasso, TB_op[,op], beta0, G, alpha),
+    result[j+1] <- list(c(BSciCoverfun(gamma.lasso, TB_op[,op],G, alpha),
                           betaEst = list(gamma.lasso),
                           modelSize = list(modelSize),
                           op = op))
   }else{
-    result[j+1] = list(c(BSciCoverfun(gamma.lasso, TB[,cc], beta0, G, alpha),
+    result[j+1] = list(c(BSciCoverfun(gamma.lasso, TB[,cc], G, alpha),
                          betaEst = list(gamma.lasso),
                          modelSize = list(modelSize),
                          op = op))
