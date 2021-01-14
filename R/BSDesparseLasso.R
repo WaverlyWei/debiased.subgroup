@@ -5,7 +5,7 @@
 #'  @param r: tuning parameter
 #'  @param G: subgroup indicator
 #'  @param B: bootstrap iterations
-#'  @param alpha0: level of CI
+#'  @param alpha: level of CI
 #'  @return
 #'  coverage: boolean value
 #'  LowerBound: lower bound
@@ -14,7 +14,11 @@
 #'  modelSize: selected model size as a reference
 #'  op: index of the tuning parameter
 #' @export
-BSDesparseLasso <- function(y, x, r, G, B, alpha0){
+BSDesparseLasso <- function(y, x,
+                            r = NULL,
+                            G = NULL,
+                            B = NULL,
+                            alpha = 0.95){
 
 
   # Length: length of the lower bound
