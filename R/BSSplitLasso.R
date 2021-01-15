@@ -44,7 +44,7 @@ BSSplitLasso <- function(y, x,
   for(i in 1:p)
     x[,i] <- x[,i]-mean(x[,i])
 
-  gamma.lasso <- 0 # change this to beta?
+  beta.lasso <- 0 # change this to beta?
 
   Delta <- 0
 
@@ -130,7 +130,7 @@ BSSplitLasso <- function(y, x,
 
   gamma.lasso <- coef(fit.lasso, s = "lambda.min")
 
-  pred <- beta.lest[1] + x%*%beta.lest[-1]
+  pred <- gamma.lasso[1] + x%*%gamma.lasso[-1]
 
   residual <- y - pred
 
@@ -148,7 +148,7 @@ BSSplitLasso <- function(y, x,
   }
 
   # simultaneous one for R-split
-  c[cc+1,] <- (max(beta.lasso)-beta.lasso)
+  correction[cc+1,] <- (max(beta.lasso)-beta.lasso)
 
   TB_op <- matrix(0, B, cc)
 
@@ -173,7 +173,7 @@ BSSplitLasso <- function(y, x,
     #correct maximum quantity
     for(j in 1:(cc+1)){
 
-      TB[i,j] <- max(Bbeta.lasso+c[j,])-max(beta.lasso)
+      TB[i,j] <- max(Bbeta.lasso+correction[j,])-max(beta.lasso)
     }
 
     for(j in 1:(cc)){

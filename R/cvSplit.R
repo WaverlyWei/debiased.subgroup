@@ -7,13 +7,18 @@
 #' @param B: bootstrap iterations
 #' @param BB: split number
 #' @param ratio: ratio of data splitting
-#' @param ll: number of folds in cross-validation
+#' @param fold: number of folds in cross-validation
 #' @return
 #' op: index of the optimal tuning
 #' @export
 
-cvSplit <- function(y, x, r, G, B, BB, ratio, ll)
-{
+cvSplit <- function(y, x,
+                    r = NULL,
+                    G = NULL,
+                    B = NULL,
+                    BB = NULL,
+                    ratio = 0.6,
+                    fold = NULL){
 
   p <- length(x[1,])
 

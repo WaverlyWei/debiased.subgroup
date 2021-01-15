@@ -18,13 +18,8 @@ BSDesparseLasso <- function(y, x,
                             r = NULL,
                             G = NULL,
                             B = NULL,
-                            alpha = 0.95){
-
-
-  # Length: length of the lower bound
-  # betaEst: estimated beta values
-  # modelSize: selected model size as a reference
-  # op: index of the tuning parameter
+                            alpha = 0.95,
+                            fold = 3){
 
   p <- length(x[1,])
 
@@ -47,19 +42,19 @@ BSDesparseLasso <- function(y, x,
 
   lambda <- lambda *1.1
 
-  beta.lasso <- coef(fit.lasso, s = lambda)
+  gamma.lasso <- coef(fit.lasso, s = lambda)
 
-  gamma.lasso <- beta.lasso[G+1]
+  beta.lasso <- beta.lasso[G+1]
 
   # calculate residual
-  pred <- beta.lasso[1] + x %*% beta.lasso[-1]
+  pred <- gamma.lasso[1] + x %*% gamma.lasso[-1]
 
   residual <- y - pred
 
   epsilion <- residual-mean(residual)
 
   #Desparsified  lasso estimate
-  gamma.Dlasso <- 0
+  beta.Dlasso <- 0
 
   Z <- Zmatrix(x,G)
 
@@ -67,7 +62,7 @@ BSDesparseLasso <- function(y, x,
 
     index <- G[i]
 
-    gamma.Dlasso[i] <- gamma.lasso[i] + sum(Z[,i]*residual)/sum(Z[,i]*x[,index])
+    beta.Dlasso[i] <- beta.lasso[i] + sum(Z[,i]*residual)/sum(Z[,i]*x[,index])
   }
 
   #calculate the correction term
@@ -77,11 +72,11 @@ BSDesparseLasso <- function(y, x,
 
   for(i in 1:cc) {
     r0 <- r[i]
-    correction[i,] = (1-n^(r0-0.5))*(max(gamma.lasso)-gamma.lasso)
+    correction[i,] = (1-n^(r0-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
   #the simulataneous one
-  correction[cc+1,]= (max(gamma.lasso)-gamma.lasso)
+  correction[cc+1,]= (max(beta.lasso)-beta.lasso)
 
   TB_op <- matrix(0, B, cc)
 
@@ -92,7 +87,7 @@ BSDesparseLasso <- function(y, x,
 
     r_op <- r0/sqrt(k/2)
 
-    c_op[i,] <- (1-n^(r_op-0.5))*(max(gamma.lasso)-gamma.lasso)
+    c_op[i,] <- (1-n^(r_op-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
   modelSize <- NULL
@@ -111,61 +106,60 @@ BSDesparseLasso <- function(y, x,
 
     Blambda <- Blambda * 1.1
 
-    Bbeta.lasso <- coef(Bfit.lasso, s = Blambda)
+    Bgamma.lasso <- coef(Bfit.lasso, s = Blambda)
 
     # collect model size
     modelSize[i] <- length(which(Bbeta.lasso!=0))
 
-    Bgamma.lasso <- Bbeta.lasso[G+1]
+    Bbeta.lasso <- Bgamma.lasso[G+1]
 
-    Bpred <- Bbeta.lasso[1] + x %*% Bbeta.lasso[-1]
+    Bpred <- Bgamma.lasso[1] + x %*% Bgamma.lasso[-1]
 
     Bresidual <- By - Bpred
 
-    Bgamma.Dlasso <- 0
+    Bbeta.Dlasso <- 0
 
     for(j in 1:k){
 
       Bindex <- G[j]
-      Bgamma.Dlasso[j] <- Bgamma.lasso[j] + sum(Z[,j]*Bresidual)/sum(Z[,j]*x[,Bindex])
+      Bbeta.Dlasso[j] <- Bbeta.lasso[j] + sum(Z[,j]*Bresidual)/sum(Z[,j]*x[,Bindex])
     }
 
     #correct the maximum quantity
     for(j in 1:(cc+1)){
-      TB[i,j] <- max(Bgamma.Dlasso+c[j,])-max(gamma.lasso)
+      TB[i,j] <- max(Bbeta.Dlasso+correction[j,])-max(beta.lasso)
     }
 
     for(j in 1:(cc)){
 
-      TB_op[i,j] <- max(Bgamma.Dlasso+c_op[j,])-max(gamma.lasso)
+      TB_op[i,j] <- max(Bbeta.Dlasso+c_op[j,])-max(beta.lasso)
 
     }
   }
 
   #choose the optimal tuning parameter
-  ll <- 3
 
-  op <- cvDesparse(y, x, r, G, B, ll) # index of the correction term
+  op <- cvDesparse(y, x, r, G, B, fold) # index of the correction term
 
   # collect results
   result <- list()
 
   for(j in 1:(cc+1)) {
 
-    result[j] = list(c(BSciCoverfun(gamma.dest, TB[,j], G, alpha0),
-                       betaEst = list(gamma.dest),
+    result[j] = list(c(BSciCoverfun(beta.Dlasso, TB[,j], G, alpha),
+                       betaEst = list(beta.Dlasso),
                        modelSize = list(modelSize),
                        op = op))
   }
 
   if(is.integer(op)){
-    result[j+1] = list(c(BSciCoverfun(gamma.dest, TB_op[,op], G, alpha0),
-                         betaEst = list(gamma.dest),
+    result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB_op[,op], G, alpha),
+                         betaEst = list(beta.Dlasso),
                          modelSize = list(modelSize),
                          op = op))
   }else{
-    result[j+1] = list(c(BSciCoverfun(gamma.dest, TB[,cc], G, alpha0),
-                         betaEst = list(gamma.dest),
+    result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB[,cc], G, alpha),
+                         betaEst = list(beta.Dlasso),
                          modelSize = list(modelSize),
                          op = op))
   }

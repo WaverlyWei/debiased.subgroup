@@ -7,7 +7,7 @@
 #' @return A covariance matrix
 #' @export
 
-sigmaMatNew <- function(p, type){
+sigmaMatNew <- function(p, type = NULL){
 
   if(type == "ind"){
 

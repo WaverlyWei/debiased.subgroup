@@ -18,6 +18,8 @@ BSciCoverfun <- function(beta, TB, G, alpha0){
 
   result <- list(LowerBound = LowerBound,
 
+                 UpperBound = UpperBound,
+
                  betaMax = max(beta)-mean(TB))
 
   return(result)
