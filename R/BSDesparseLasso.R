@@ -76,7 +76,7 @@ BSDesparseLasso <- function(y, x,
   }
 
   #the simulataneous one
-  correction[cc+1,]= (max(beta.lasso)-beta.lasso)
+  correction[cc+1,] <- (max(beta.lasso)-beta.lasso)
 
   TB_op <- matrix(0, B, cc)
 
