@@ -21,6 +21,14 @@ BSDesparseLasso <- function(y, x,
                             alpha = 0.95,
                             fold = 3){
 
+  if(is.null(r)){
+    stop("Tuning parameter is missing.")
+  }else if(is.null(G)){
+    stop("Number of subgroups is missing.")
+  }else if(is.null(B)){
+    stop("Specify bootstrap iterations.")
+  }
+
   p <- length(x[1,])
 
   n <- length(y)

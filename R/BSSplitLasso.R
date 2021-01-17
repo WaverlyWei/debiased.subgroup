@@ -24,6 +24,16 @@ BSSplitLasso <- function(y, x,
                         splitRatio = 0.6,
                         fold = 2){
 
+  if(is.null(r)){
+    stop("Tuning parameter is missing.")
+  }else if(is.null(G)){
+    stop("Number of subgroups is missing.")
+  }else if(is.null(B)){
+    stop("Specify bootstrap iterations.")
+  }else if(is.null(BB)){
+    stop("Specify bootstrap iterations.")
+  }
+
   p <- length(x[1,])
 
   n <- length(y)

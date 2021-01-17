@@ -1,0 +1,98 @@
+---
+title: "An Introduction to `subDebiased`"
+author: "Waverly Wei"
+date: "Jan.2021"
+output: 
+  pdf_document:
+    fig_caption: yes
+    toc: yes
+    toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{An Introduction to subDebiased}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, eval = FALSE}
+devtools::install_github("WaverlyWei/subDebiased")
+)
+```
+
+```{r}
+library(subDebiased)
+```
+
+## Generate data
+```{r}
+library(MASS)
+  p <- 800 # number of confounders
+
+  n <- 600 # sample size
+  
+  ## Change to 2 for now ######
+  ngroups <- 2 # number of subgroups/treatments;
+  
+  s0 <- 4
+  
+  m <- ngroups
+    
+  Sigma <- matrix(0,p,p)
+    
+  for (i in 1:n){
+      for(j in 1:p){
+        Sigma[i,j] <- 0.5^(abs(i-j))
+      }
+    }
+    
+    # generate X 
+    X <- mvrnorm( n = n, mu = rep(0,p), Sigma = Sigma )
+    
+    Z <- matrix(0,n,m)
+    
+    for(i in 1:n){
+      for(j in 1:m){
+        Z[i,j] <- rbinom(1,1,exp(X[i,2*j-1] + X[i,2*j])/(1+exp(X[i,2*j-1] + X[i,2*j])))
+      }
+    }
+    
+    
+    # noise: heter/homo
+    noise.y <- 1
+    
+    betas <- 1
+    
+    #index of the subgroups
+    w.index <- seq(1, m, 1) 
+    
+    x <- cbind(Z,X)
+    
+    
+    # Model: Y = Z * beta + X * gamma + noise
+    
+    # Generate coefficients
+    beta <- c(rep(0,m-1),betas) 
+    
+    gamma <- c(rep(1, s0), rep(0, p-s0)) 
+    
+    beta0 <- c(beta, gamma)
+    
+    # Generate noise 
+    noise <- mvrnorm( n = 1, mu = rep(0,n), Sigma = diag(n) * noise.y )
+    
+    # Generate response Y 
+    Y <- 0.5 + x %*% beta0 + noise
+    
+    ## parameters in the function
+    r = 1/(3*1:10)
+    
+```
+
+## Bootstrap-calibrated Desparsified Lasso
+```{r}
+BSDesparseLasso(y = Y, x = x, r = r, G = w.index,B = 5)
+```
+
+## Bootstrap-calibrated R-Split
+```{r}
+BSSplitLasso(y = Y, x = x, r = r, G = w.index,B = 5, BB = 5)
+```
