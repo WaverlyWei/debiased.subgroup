@@ -55,7 +55,7 @@ cvDesparse <- function(y, x,
     # lasso estimates
     gamma.lasso <-  coef(fit.lasso, s = lambda)
 
-    beta.lasso <-  beta.lasso[G+1]
+    beta.lasso <-  gamma.lasso[G+1]
 
     predb <-  gamma.lasso[1] + xtrain %*% gamma.lasso[-1]
 

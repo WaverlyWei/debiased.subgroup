@@ -44,7 +44,7 @@ BSDesparseLasso <- function(y, x,
 
   gamma.lasso <- coef(fit.lasso, s = lambda)
 
-  beta.lasso <- beta.lasso[G+1]
+  beta.lasso <- gamma.lasso[G+1]
 
   # calculate residual
   pred <- gamma.lasso[1] + x %*% gamma.lasso[-1]
@@ -85,9 +85,9 @@ BSDesparseLasso <- function(y, x,
   for(i in 1:cc) {
     r0 <- r[i]
 
-    r_op <- r0/sqrt(k/2)
+    rp <- r0/sqrt(k/2)
 
-    c_op[i,] <- (1-n^(r_op-0.5))*(max(beta.lasso)-beta.lasso)
+    c_op[i,] <- (1-n^(rp-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
   modelSize <- NULL
@@ -109,7 +109,7 @@ BSDesparseLasso <- function(y, x,
     Bgamma.lasso <- coef(Bfit.lasso, s = Blambda)
 
     # collect model size
-    modelSize[i] <- length(which(Bbeta.lasso!=0))
+    modelSize[i] <- length(which(Bgamma.lasso!=0))
 
     Bbeta.lasso <- Bgamma.lasso[G+1]
 
