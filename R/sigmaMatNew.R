@@ -9,6 +9,12 @@
 
 sigmaMatNew <- function(p, type = NULL){
 
+  if(is.null(type)){
+
+    stop("Specify matrix type.")
+
+  }
+
   if(type == "ind"){
 
     Sigma <- matrix(data = 0, nrow = p, ncol = p)

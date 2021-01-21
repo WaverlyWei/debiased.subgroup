@@ -3,18 +3,29 @@
 #' @param beta: estimated betas
 #' @param TB: correction term
 #' @param G: indices of subgroups
-#' @param alpha0: confidence level
+#' @param alpha: confidence level
 #' @return
 #' coverage: boolean value
 #'  LowerBound: Lower bound of the estimates
 #'  UpperBound: Upper bound of the estimates
 #'  betaMax: debiased maximum beta estimate
 #'  @export
-BSciCoverfun <- function(beta, TB, G, alpha0){
+BSciCoverfun <- function(beta,
+                         TB = NULL,
+                         G = NULL,
+                         alpha = 0.95){
 
-  LowerBound <- max(beta) - quantile(TB, alpha0)
+  if(is.null(TB)){
 
-  UpperBound <- max(beta) + quantile(TB, alpha0)
+    stop("Specify test statistic.")
+
+  }else if(is.null(G)){
+    stop("Specify number of subgroups")
+  }
+
+  LowerBound <- max(beta) - quantile(TB, alpha)
+
+  UpperBound <- max(beta) + quantile(TB, alpha)
 
   result <- list(LowerBound = LowerBound,
 

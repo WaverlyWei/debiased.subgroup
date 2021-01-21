@@ -6,7 +6,15 @@
 #'Z: nodewise Lasso matrix
 #' @export
 
-Zmatrix <- function(x, G){
+Zmatrix <- function(x,
+                    G = NULL){
+
+  if(is.null(G)){
+
+    stop("Number of subgroups is missing.")
+
+  }
+
 
   n <- length(x[,1]) #number of subjects
 

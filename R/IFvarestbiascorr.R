@@ -7,7 +7,16 @@
 #' @export
 
 
-IFvarestbiascorr <- function(Ycount, alphaEst, n, splitSize){
+IFvarestbiascorr <- function(Ycount,
+                             alphaEst,
+                             n = NULL,
+                             splitSize = NULL){
+
+    if(is.null(splitSize)){
+
+        stop("Specify the split size")
+      }
+
 
   n <- length(Ycount[1,]) # only filtered beta's
 

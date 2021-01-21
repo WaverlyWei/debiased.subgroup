@@ -15,7 +15,21 @@ cvDesparse <- function(y, x,
                        r = NULL,
                        G = NULL,
                        B = NULL,
-                       fold =NULL){
+                       fold = 3){
+
+  if(is.null(r)){
+
+    stop("Tuning parameter is missing.")
+
+  }else if(is.null(G)){
+
+    stop("Number of subgroups is missing.")
+
+  }else if(is.null(B)){
+
+    stop("Specify bootstrap iterations.")
+  }
+
 
   p <- length(x[1,]) # dimension of the design matrix
 
