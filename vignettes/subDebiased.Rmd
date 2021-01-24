@@ -7,10 +7,6 @@ output:
     fig_caption: yes
     toc: yes
     toc_depth: 3
-vignette: >
-  %\VignetteIndexEntry{An Introduction to subDebiased}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, eval = FALSE}
