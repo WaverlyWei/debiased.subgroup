@@ -15,6 +15,7 @@
 #' betaEst: beta estimates
 #' op: optimal tuning index
 #' fold:cross validation fold
+#' @export
 BSSplitLasso <- function(y, x,
                          r = NULL,
                          G = NULL,

@@ -89,6 +89,7 @@ library(MASS)
 
 ## Bootstrap-calibrated Desparsified Lasso
 ```{r}
+library(subDebiased)
 BSDesparseLasso(y = Y, x = x, r = r, G = w.index,B = 5)
 ```
 
