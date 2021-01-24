@@ -103,7 +103,7 @@ BSDesparseLasso <- function(y, x,
     c_op[i,] <- (1-n^(rp-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
-  modelSize <- NULL
+  #modelSize <- NULL
 
   for(i in 1:B){
 
@@ -122,7 +122,7 @@ BSDesparseLasso <- function(y, x,
     Bgamma.lasso <- coef(Bfit.lasso, s = Blambda)
 
     # collect model size
-    modelSize[i] <- length(which(Bgamma.lasso!=0))
+    #modelSize[i] <- length(which(Bgamma.lasso!=0))
 
     Bbeta.lasso <- Bgamma.lasso[G+1]
 
@@ -161,19 +161,19 @@ BSDesparseLasso <- function(y, x,
 
     result[j] = list(c(BSciCoverfun(beta.Dlasso, TB[,j], G, alpha),
                        betaEst = list(beta.Dlasso),
-                       modelSize = list(modelSize),
+                       #modelSize = list(modelSize),
                        op = op))
   }
 
   if(is.integer(op)){
     result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB_op[,op], G, alpha),
                          betaEst = list(beta.Dlasso),
-                         modelSize = list(modelSize),
+                         #modelSize = list(modelSize),
                          op = op))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB[,cc], G, alpha),
                          betaEst = list(beta.Dlasso),
-                         modelSize = list(modelSize),
+                         #modelSize = list(modelSize),
                          op = op))
   }
   return(result)
