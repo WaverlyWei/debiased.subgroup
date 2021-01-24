@@ -94,5 +94,5 @@ desparse_res <- BSDesparseLasso(y = Y,
 
 ## Bootstrap-calibrated R-Split
 ```{r}
-#BSSplitLasso(y = Y, x = x, r = r, G = w.index,B = 5, BB = 5)
+rsplit_res <- BSSplitLasso(y = Y, x = x, r = r, G = w.index,B = 5, BB = 5)
 ```
