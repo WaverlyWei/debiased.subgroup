@@ -20,11 +20,11 @@ devtools::install_github("WaverlyWei/subDebiased")
 
 ```{r}
 library(subDebiased)
+library(MASS)
 ```
 
 ## Generate data
 ```{r}
-library(MASS)
   p <- 800 # number of confounders
 
   n <- 600 # sample size
