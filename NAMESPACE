@@ -13,3 +13,6 @@ export(BSSplitLasso)
 export(cvDesparse)
 export(sigmaMatNew)
 export(Zmatrix)
+export(cvSplit)
+
+
