@@ -88,8 +88,12 @@ library(MASS)
 ```
 
 ## Bootstrap-calibrated Desparsified Lasso
-```{r}
-#BSDesparseLasso(y = Y, x = x, r = r, G = w.index,B = 5)
+```{r,cache=TRUE}
+desparse_res <- BSDesparseLasso(y = Y,
+                                x = x, 
+                                r = r, 
+                                G = w.index,
+                                B = 5)
 ```
 
 ## Bootstrap-calibrated R-Split
