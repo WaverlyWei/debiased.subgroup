@@ -89,11 +89,10 @@ library(MASS)
 
 ## Bootstrap-calibrated Desparsified Lasso
 ```{r}
-library(subDebiased)
 BSDesparseLasso(y = Y, x = x, r = r, G = w.index,B = 5)
 ```
 
 ## Bootstrap-calibrated R-Split
 ```{r}
-BSSplitLasso(y = Y, x = x, r = r, G = w.index,B = 5, BB = 5)
+#BSSplitLasso(y = Y, x = x, r = r, G = w.index,B = 5, BB = 5)
 ```
