@@ -6,7 +6,7 @@
 #'@param splitSize size of each split
 #'@return
 #'mean squared error
-
+#'@export
 
 IFvarestbiascorr <- function(Ycount,
                              alphaEst,
