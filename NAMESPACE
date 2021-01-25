@@ -2,8 +2,8 @@
 
 export(BSDesparseLasso)
 export(BSSplitLasso)
-export(Zmatrix)
 export(IFvarestbiascorr)
+export(Zmatrix)
 export(cvDesparse)
 export(cvSplit)
 export(sigmaMatNew)

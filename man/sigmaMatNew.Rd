@@ -12,7 +12,7 @@ sigmaMatNew(p, type = NULL)
 \item{type}{type of matrix}
 }
 \value{
-\item{A covariance matrix}
+\item{Sigma}{A covariance matrix}
 }
 \description{
 This function generates different types of covariance matrices
