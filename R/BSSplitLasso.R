@@ -212,6 +212,7 @@ BSSplitLasso <- function(y, x,
 
   for(j in 1:(cc+1)) {
     result[j] <- list(c(BSciCoverfun(beta.lasso, TB[,j], G, alpha),
+                        modelSize = modelSize,
                         betaEst = list(beta.lasso),
                         op = r[op]))
   }
@@ -220,11 +221,13 @@ BSSplitLasso <- function(y, x,
 
     result[j+1] <- list(c(BSciCoverfun(beta.lasso, TB_op[,op],G, alpha),
                           betaEst = list(beta.lasso),
+                          modelSize = modelSize,
                           op = r[op]))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.lasso, TB[,cc], G, alpha),
                          betaEst = list(beta.lasso),
-                          op = r[op]))
+                         modelSize = modelSize,
+                         op = r[op]))
   }
   return(result[[12]])
 }
