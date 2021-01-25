@@ -5,7 +5,7 @@
 #'@param n sample size
 #'@param splitSize size of each split
 #'@return
-#'\item{mean squared error}
+#'mean squared error
 
 
 IFvarestbiascorr <- function(Ycount,
