@@ -2,7 +2,7 @@
 % Please edit documentation in R/BSDesparseLasso.R
 \name{BSDesparseLasso}
 \alias{BSDesparseLasso}
-\title{Bootstrap-calibrated Despasified Lasso}
+\title{Bootstrap-calibrated Desparsified Lasso}
 \usage{
 BSDesparseLasso(y, x, r = NULL, G = NULL, B = NULL, alpha = 0.95, fold = 3)
 }
@@ -25,5 +25,5 @@ BSDesparseLasso(y, x, r = NULL, G = NULL, B = NULL, alpha = 0.95, fold = 3)
 \item{op}{optimal tuning}
 }
 \description{
-Bootstrap-calibrated Despasified Lasso
+Bootstrap-calibrated Desparsified Lasso
 }

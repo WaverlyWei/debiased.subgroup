@@ -1,4 +1,4 @@
-#'variance calculation
+#' Cross-validation metric
 #'
 #'@param Ycount Y
 #'@param alphaEst estimated values

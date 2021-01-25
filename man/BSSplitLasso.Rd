@@ -2,7 +2,7 @@
 % Please edit documentation in R/BSSplitLasso.R
 \name{BSSplitLasso}
 \alias{BSSplitLasso}
-\title{Bootstrap-calibrated R-split}
+\title{Bootstrap-calibrated R-split method}
 \usage{
 BSSplitLasso(
   y,
@@ -41,5 +41,5 @@ BSSplitLasso(
 \item{op}{optimal tuning}
 }
 \description{
-Bootstrap-calibrated R-split
+Bootstrap-calibrated R-split method
 }

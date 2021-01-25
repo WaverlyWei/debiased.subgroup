@@ -1,4 +1,4 @@
-#' Bootstrap-calibrated R-split
+#' Bootstrap-calibrated R-split method
 #'
 #' @param y response
 #' @param x design matrix
@@ -20,8 +20,8 @@ BSSplitLasso <- function(y, x,
                          B = NULL,
                          BB = NULL,
                          alpha = 0.95,
-                        splitRatio = 0.6,
-                        fold = 2){
+                         splitRatio = 0.6,
+                         fold = 2){
 
   if(is.null(r)){
 

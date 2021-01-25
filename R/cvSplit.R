@@ -1,4 +1,4 @@
-#' Choose the optimal tuning for bootstrap-calibrated R-Split through cross-validation
+#' Select the optimal tuning for bootstrap-calibrated R-Split through cross-validation
 #'
 #' @param y response
 #' @param x design matrix

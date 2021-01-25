@@ -2,7 +2,7 @@
 % Please edit documentation in R/cvSplit.R
 \name{cvSplit}
 \alias{cvSplit}
-\title{Choose the optimal tuning for bootstrap-calibrated R-Split through cross-validation}
+\title{Select the optimal tuning for bootstrap-calibrated R-Split through cross-validation}
 \usage{
 cvSplit(y, x, r = NULL, G = NULL, B = NULL, BB = NULL, ratio = NULL, fold = 2)
 }
@@ -27,5 +27,5 @@ cvSplit(y, x, r = NULL, G = NULL, B = NULL, BB = NULL, ratio = NULL, fold = 2)
 \item{op}{index of the optimal tuning}
 }
 \description{
-Choose the optimal tuning for bootstrap-calibrated R-Split through cross-validation
+Select the optimal tuning for bootstrap-calibrated R-Split through cross-validation
 }

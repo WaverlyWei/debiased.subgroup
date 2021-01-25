@@ -1,4 +1,4 @@
-#' Find the optimal tuning parameter for bootstrap-calibrated desparsified Lasso
+#' Select the optimal tuning for bootstrap-calibrated desparsified Lasso
 #'
 #' @param y response
 #' @param x design matrix

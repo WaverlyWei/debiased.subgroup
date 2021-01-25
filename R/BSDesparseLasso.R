@@ -1,4 +1,4 @@
-#' Bootstrap-calibrated Despasified Lasso
+#' Bootstrap-calibrated Desparsified Lasso
 #'
 #' @param y response
 #' @param x design matrix

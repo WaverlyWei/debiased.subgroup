@@ -1,6 +1,4 @@
-#' Generate covariance matrix
-#'
-#' This function generates different types of covariance matrices
+#' Generate different types of covariance matrices
 #'
 #' @param p dimension of confounders
 #' @param type type of matrix

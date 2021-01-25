@@ -2,7 +2,7 @@
 % Please edit documentation in R/IFvarestbiascorr.R
 \name{IFvarestbiascorr}
 \alias{IFvarestbiascorr}
-\title{variance calculation}
+\title{Cross-validation metric}
 \usage{
 IFvarestbiascorr(Ycount, alphaEst, n = NULL, splitSize = NULL)
 }
@@ -19,5 +19,5 @@ IFvarestbiascorr(Ycount, alphaEst, n = NULL, splitSize = NULL)
 mean squared error
 }
 \description{
-variance calculation
+Cross-validation metric
 }

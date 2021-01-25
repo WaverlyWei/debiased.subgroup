@@ -2,7 +2,7 @@
 % Please edit documentation in R/cvDesparse.R
 \name{cvDesparse}
 \alias{cvDesparse}
-\title{Find the optimal tuning parameter for bootstrap-calibrated desparsified Lasso}
+\title{Select the optimal tuning for bootstrap-calibrated desparsified Lasso}
 \usage{
 cvDesparse(y, x, r = NULL, G = NULL, B = NULL, fold = 3)
 }
@@ -23,5 +23,5 @@ cvDesparse(y, x, r = NULL, G = NULL, B = NULL, fold = 3)
 \item{op}{optimal tuning parameter's index}
 }
 \description{
-Find the optimal tuning parameter for bootstrap-calibrated desparsified Lasso
+Select the optimal tuning for bootstrap-calibrated desparsified Lasso
 }

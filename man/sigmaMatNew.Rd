@@ -2,7 +2,7 @@
 % Please edit documentation in R/sigmaMatNew.R
 \name{sigmaMatNew}
 \alias{sigmaMatNew}
-\title{Generate covariance matrix}
+\title{Generate different types of covariance matrices}
 \usage{
 sigmaMatNew(p, type = NULL)
 }
@@ -15,5 +15,5 @@ sigmaMatNew(p, type = NULL)
 \item{Sigma}{A covariance matrix}
 }
 \description{
-This function generates different types of covariance matrices
+Generate different types of covariance matrices
 }
