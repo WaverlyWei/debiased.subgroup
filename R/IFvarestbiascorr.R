@@ -19,7 +19,7 @@ IFvarestbiascorr <- function(Ycount,
       }
 
 
-  n <- length(Ycount[1,]) # only filtered beta's
+  n <- length(Ycount[1,])
 
   Brep <- length(alphaEst)
 
