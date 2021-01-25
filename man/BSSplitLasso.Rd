@@ -41,5 +41,9 @@ BSSplitLasso(
 \item{op}{optimal tuning}
 }
 \description{
-Bootstrap-calibrated R-split method
+This method first obtains the estimate of \eqn{\beta} via repetitive splitting
+procedure (R-Split) through BB iterations. Then it calculates the calibration term
+\eqn{\tilde{b}_{max} = (1-n^{r-0.5})(\tilde{\beta}_{max}-\tilde{\beta}_{j})}. Through B iterations,
+it recalibrates the bootstrap statistic \eqn{T_b}. The bias-reduced estimate
+is computed as: \eqn{\tilde{b}_{max}-\frac{1}{B}\sum_{b=1}^B T_b}.
 }

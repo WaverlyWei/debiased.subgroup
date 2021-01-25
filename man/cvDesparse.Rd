@@ -20,7 +20,7 @@ cvDesparse(y, x, r = NULL, G = NULL, B = NULL, fold = 3)
 \item{fold}{number of folds in cross-validation}
 }
 \value{
-\item{op}{optimal tuning parameter's index}
+\item{op}{optimal tuning parameter}
 }
 \description{
 Select the optimal tuning for bootstrap-calibrated desparsified Lasso

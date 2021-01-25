@@ -9,15 +9,15 @@ BSciCoverfun(beta, TB = NULL, G = NULL, alpha = 0.95)
 \arguments{
 \item{beta}{estimated betas}
 
-\item{TB}{correction term}
+\item{TB}{recalibrated bootstrap statistics}
 
 \item{G}{indices of subgroups}
 
 \item{alpha:}{confidence level}
 }
 \value{
-\item{LowerBound}{Lower bound of the estimates}
-\item{UpperBound}{Upper bound of the estimates}
+\item{LowerBound}{Lower confidence bound}
+\item{UpperBound}{Upper confidence bound}
 \item{betaMax}{debiased maximum beta estimate}
 }
 \description{

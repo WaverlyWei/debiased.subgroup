@@ -7,7 +7,7 @@
 #' @param B bootstrap repetitions
 #' @param fold number of folds in cross-validation
 #' @return
-#' \item{op}{optimal tuning parameter's index}
+#' \item{op}{optimal tuning parameter}
 #' @export
 #'
 cvDesparse <- function(y, x,

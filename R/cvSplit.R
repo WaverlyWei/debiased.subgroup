@@ -5,11 +5,11 @@
 #' @param r candidate tuning parameter
 #' @param G subgroup indicator
 #' @param B bootstrap iterations
-#' @param BB split number
+#' @param BB bootstrap iterations for repetitive splitting
 #' @param ratio ratio of data splitting
 #' @param fold number of folds in cross-validation
 #' @return
-#' \item{op}{index of the optimal tuning}
+#' \item{op}{optimal tuning parameter}
 #' @export
 
 cvSplit <- function(y, x,

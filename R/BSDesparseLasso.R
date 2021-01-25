@@ -1,5 +1,12 @@
 #' Bootstrap-calibrated Desparsified Lasso
 #'
+#'This method first constructs the debiased estimator of \eqn{\beta} via the
+#'desparsified Lasso procedure. Then it calculates the calibration term
+#' \eqn{\hat{b}_{max} =(1-n^{r-0.5})(\hat{\beta}_{max}-\hat{\beta}_{j,lasso})}. Through B bootstrap iterations,
+#' it recalibrates the bootstrap statistic \eqn{T_b}. The bias-reduced estimate
+#' is computed as: \eqn{\hat{b}_{max}-\frac{1}{B}\sum_{b=1}^BT_b}.
+#'
+#'
 #' @param y response
 #' @param x design matrix
 #' @param r tuning parameter

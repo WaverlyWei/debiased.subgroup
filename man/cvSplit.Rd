@@ -17,14 +17,14 @@ cvSplit(y, x, r = NULL, G = NULL, B = NULL, BB = NULL, ratio = NULL, fold = 2)
 
 \item{B}{bootstrap iterations}
 
-\item{BB}{split number}
+\item{BB}{bootstrap iterations for repetitive splitting}
 
 \item{ratio}{ratio of data splitting}
 
 \item{fold}{number of folds in cross-validation}
 }
 \value{
-\item{op}{index of the optimal tuning}
+\item{op}{optimal tuning parameter}
 }
 \description{
 Select the optimal tuning for bootstrap-calibrated R-Split through cross-validation
