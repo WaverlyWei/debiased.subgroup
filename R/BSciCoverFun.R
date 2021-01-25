@@ -1,15 +1,13 @@
 
 #' Compute CI for bootstrap-calibrated methods
-#' @param beta: estimated betas
-#' @param TB: correction term
-#' @param G: indices of subgroups
+#' @param beta estimated betas
+#' @param TB correction term
+#' @param G indices of subgroups
 #' @param alpha: confidence level
 #' @return
-#' coverage: boolean value
-#'  LowerBound: Lower bound of the estimates
-#'  UpperBound: Upper bound of the estimates
-#'  betaMax: debiased maximum beta estimate
-#'  @export
+#'  \item{LowerBound}{Lower bound of the estimates}
+#'  \item{UpperBound}{Upper bound of the estimates}
+#'  \item{betaMax}{debiased maximum beta estimate}
 BSciCoverfun <- function(beta,
                          TB = NULL,
                          G = NULL,

@@ -1,14 +1,13 @@
-#' Find the optimal tuning parameter for bootstrap-calibrated
-#' desparsified Lasso
+#' Find the optimal tuning parameter for bootstrap-calibrated desparsified Lasso
 #'
-#' @param y: response
-#' @param x: design matrix
-#' @param r: candidate tuning parameters
-#' @param G: indices of subgroups
-#' @param B: bootstrap repetitions
-#' @param fold: number of folds in cross-validation
+#' @param y response
+#' @param x design matrix
+#' @param r candidate tuning parameters
+#' @param G indices of subgroups
+#' @param B bootstrap repetitions
+#' @param fold number of folds in cross-validation
 #' @return
-#' op: optimal tuning parameter's index
+#' \item{op}{optimal tuning parameter's index}
 #' @export
 #'
 cvDesparse <- function(y, x,

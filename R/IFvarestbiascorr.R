@@ -1,10 +1,11 @@
 #'variance calculation
 #'
-#'@param Ycount y variable
+#'@param Ycount Y
 #'@param alphaEst estimated values
 #'@param n sample size
 #'@param splitSize size of each split
-#' @export
+#'@return
+#'\item{mean squared error}
 
 
 IFvarestbiascorr <- function(Ycount,

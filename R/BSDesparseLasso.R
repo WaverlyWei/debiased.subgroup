@@ -1,18 +1,15 @@
 #' Bootstrap-calibrated Despasified Lasso
 #'
-#' @param y: response
-#' @param x: design matrix
-#'  @param r: tuning parameter
-#'  @param G: subgroup indicator
-#'  @param B: bootstrap iterations
-#'  @param alpha: level of CI
-#'  @return
-#'  coverage: boolean value
-#'  LowerBound: lower bound
-#'  Length: length of the lower bound
-#'  betaEst: estimated beta values
-#'  modelSize: selected model size as a reference
-#'  op: index of the tuning parameter
+#' @param y response
+#' @param x design matrix
+#' @param r tuning parameter
+#' @param G subgroup indicator
+#' @param B bootstrap iterations
+#' @param alpha level of CI
+#' @return
+#' \item{LowerBound}{lower confidence bound}
+#' \item{UpperBound}{upper confidence bound}
+#' \item{op}{optimal tuning}
 #' @export
 BSDesparseLasso <- function(y, x,
                             r = NULL,
@@ -103,7 +100,6 @@ BSDesparseLasso <- function(y, x,
     c_op[i,] <- (1-n^(rp-0.5))*(max(beta.lasso)-beta.lasso)
   }
 
-  #modelSize <- NULL
 
   for(i in 1:B){
 
@@ -120,9 +116,6 @@ BSDesparseLasso <- function(y, x,
     Blambda <- Blambda * 1.1
 
     Bgamma.lasso <- coef(Bfit.lasso, s = Blambda)
-
-    # collect model size
-    #modelSize[i] <- length(which(Bgamma.lasso!=0))
 
     Bbeta.lasso <- Bgamma.lasso[G+1]
 
@@ -160,21 +153,18 @@ BSDesparseLasso <- function(y, x,
   for(j in 1:(cc+1)) {
 
     result[j] = list(c(BSciCoverfun(beta.Dlasso, TB[,j], G, alpha),
-                       betaEst = list(beta.Dlasso),
-                       #modelSize = list(modelSize),
-                       op = op))
+                       #betaEst = list(beta.Dlasso),
+                       op = rp[op]))
   }
 
   if(is.integer(op)){
     result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB_op[,op], G, alpha),
-                         betaEst = list(beta.Dlasso),
-                         #modelSize = list(modelSize),
-                         op = op))
+                         #betaEst = list(beta.Dlasso),
+                         op = rp[op]))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB[,cc], G, alpha),
-                         betaEst = list(beta.Dlasso),
-                         #modelSize = list(modelSize),
-                         op = op))
+                         #betaEst = list(beta.Dlasso),
+                         op = rp[op]))
   }
   return(result)
 }

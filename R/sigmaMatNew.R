@@ -4,7 +4,7 @@
 #'
 #' @param p dimension of confounders
 #' @param type type of matrix
-#' @return A covariance matrix
+#' @return \item{A covariance matrix}
 #' @export
 
 sigmaMatNew <- function(p, type = NULL){

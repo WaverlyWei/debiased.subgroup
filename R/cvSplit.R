@@ -1,15 +1,15 @@
-#' Choose the optimal tuning for bootstrap-calibrated R-Split
+#' Choose the optimal tuning for bootstrap-calibrated R-Split through cross-validation
 #'
-#' @param y: response
-#' @param x: design matrix
-#' @param r: candidate tuning parameter
-#' @param G: subgroup indicator
-#' @param B: bootstrap iterations
-#' @param BB: split number
-#' @param ratio: ratio of data splitting
-#' @param fold: number of folds in cross-validation
+#' @param y response
+#' @param x design matrix
+#' @param r candidate tuning parameter
+#' @param G subgroup indicator
+#' @param B bootstrap iterations
+#' @param BB split number
+#' @param ratio ratio of data splitting
+#' @param fold number of folds in cross-validation
 #' @return
-#' op: index of the optimal tuning
+#' \item{op}{index of the optimal tuning}
 #' @export
 
 cvSplit <- function(y, x,

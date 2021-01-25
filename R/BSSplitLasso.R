@@ -1,20 +1,18 @@
 #' Bootstrap-calibrated R-split
 #'
-#' @param y: response
-#' @param x: design matrix
-#' @param r: tuning parameter
-#' @param G: subgroup indicator
-#' @param B: bootstrap number
-#' @param BB: split number
-#' @param alpha: level  ## change other places
-#' @param splitRatio: split ratio
+#' @param y response
+#' @param x design matrix
+#' @param r tuning parameter
+#' @param G subgroup indicator
+#' @param B bootstrap number
+#' @param BB split number
+#' @param alpha level  ## change other places
+#' @param splitRatio split ratio
+#' @param fold cross validation fold
 #' @return
-#' coverage: boolean value
-#' LowerBound: lower bound
-#' Length: lower bound length
-#' betaEst: beta estimates
-#' op: optimal tuning index
-#' fold:cross validation fold
+#' \item{LowerBound}{lower confidence bound}
+#' \item{UpperBound}{upper confidence bound}
+#' \item{op}{optimal tuning}
 #' @export
 BSSplitLasso <- function(y, x,
                          r = NULL,
@@ -206,22 +204,19 @@ BSSplitLasso <- function(y, x,
 
   for(j in 1:(cc+1)) {
     result[j] <- list(c(BSciCoverfun(beta.lasso, TB[,j], G, alpha),
-                        betaEst = list(beta.lasso),
-                        modelSize = list(modelSize),
-                        op = op))
+                        #betaEst = list(beta.lasso),
+                        op = rp[op]))
   }
 
   if(is.integer(op) && length(op)==1){
 
     result[j+1] <- list(c(BSciCoverfun(beta.lasso, TB_op[,op],G, alpha),
-                          betaEst = list(beta.lasso),
-                          modelSize = list(modelSize),
-                          op = op))
+                          #betaEst = list(beta.lasso),
+                          op = rp[op]))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.lasso, TB[,cc], G, alpha),
-                         betaEst = list(beta.lasso),
-                         modelSize = list(modelSize),
-                         op = op))
+                         #betaEst = list(beta.lasso),
+                          op = rp[op]))
   }
   return(result)
 }

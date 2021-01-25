@@ -1,9 +1,9 @@
 #' Generate the nodewise Lasso matrix used in desparsified Lasso
 
-#'@param x: nodewise confounder matrix
-#'@param G: indices of subgroups
+#'@param x nodewise confounder matrix
+#'@param G indices of subgroups
 #'@return
-#'Z: nodewise Lasso matrix
+#'\item{Z}{nodewise Lasso matrix}
 #' @export
 
 Zmatrix <- function(x,
