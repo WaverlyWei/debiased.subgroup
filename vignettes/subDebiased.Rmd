@@ -8,22 +8,28 @@ output:
     toc: yes
     toc_depth: 3
 ---
+## Introduction
+subDebiased is a package that implements two bootstrap-assisted estimators: bootstrap-assisted desparsified Lasso and R-split. The two methods remove the subgroup selection bias and regularization bias indeced by high-dimensional covariates. 
 
+## Installation
 ```{r, eval = FALSE,warning=FALSE,message=FALSE}
 devtools::install_github("WaverlyWei/subDebiased")
-)
+
 ```
 
+## Quick start
+First we load the `subDebiased` package:
 ```{r, warning=FALSE,message=FALSE}
 library(subDebiased)
-library(MASS)
 ```
 
-## Generate data
+We generate high-dimensional data with 2 subgroups of interest. We predefine a set of tuning parameters, denoted as $r$.
 ```{r}
-  p <- 800 # number of confounders
+  library(MASS)
 
-  n <- 600 # sample size
+  p <- 200 # number of confounders
+
+  n <- 100 # sample size
   
   ngroups <- 2 # number of subgroups/treatments;
   
@@ -83,6 +89,7 @@ library(MASS)
 ```
 
 ## Bootstrap-calibrated Desparsified Lasso
+Bootstrap iteration is recommended to be B = 200. Here we use B = 5 as a demo. 
 ```{r,cache=TRUE}
 desparse_res <- BSDesparseLasso(y = Y,
                                 x = x, 
@@ -91,7 +98,27 @@ desparse_res <- BSDesparseLasso(y = Y,
                                 B = 5)
 ```
 
+
+### Result summary
+Results at index 1 to length(r) correspond to each tuning parameter. Result at index [length(r)+1] corresponds to the simultaneous estimator. Result at index [length(r)+2] corresponds to the optimal tuning. The tuning parameter is selected through `cvDesparse`
+```{r,cache=TRUE}
+opt_idx <- length(r) + 2 # optimal result index
+
+desparse_res[[opt_idx]] # extract optimal results
+```
+
 ## Bootstrap-calibrated R-Split
+Bootstrap iteration is recommended to be B = 200, BB = 1000. Here we use B = 5 and BB = 10 as a demo. The tuning parameter is selected through `cvSplit`
 ```{r}
-rsplit_res <- BSSplitLasso(y = Y, x = x, r = r, G = w.index,B = 5, BB = 5)
+rsplit_res <- BSSplitLasso(y = Y,
+                           x = x, 
+                           r = r, 
+                           G = w.index,B = 5, BB = 10)
+```
+
+
+```{r,cache=TRUE}
+opt_idx <- length(r) + 2 # optimal result index
+
+rsplit_res[[opt_idx]] # extract optimal results
 ```
