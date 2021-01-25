@@ -16,7 +16,7 @@ IFvarestbiascorr(Ycount, alphaEst, n = NULL, splitSize = NULL)
 \item{splitSize}{size of each split}
 }
 \value{
-\item{mean squared error}
+mean squared error
 }
 \description{
 variance calculation
