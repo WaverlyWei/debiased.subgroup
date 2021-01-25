@@ -84,7 +84,7 @@ We generate high-dimensional data with 2 subgroups of interest. We predefine a s
     Y <- 0.5 + x %*% beta0 + noise
     
     ## parameters in the function
-    r = 1/(3*1:10)
+    r <- 1/(3*1:10)
     
 ```
 
@@ -100,11 +100,9 @@ desparse_res <- BSDesparseLasso(y = Y,
 
 
 ### Result summary
-Results at index 1 to length(r) correspond to each tuning parameter. Result at index [length(r)+1] corresponds to the simultaneous estimator. Result at index [length(r)+2] corresponds to the optimal tuning. The tuning parameter is selected through `cvDesparse`
+The tuning parameter is selected through `cvDesparse`
 ```{r,cache=TRUE}
-opt_idx <- length(r) + 2 # optimal result index
-
-desparse_res[[opt_idx]] # extract optimal results
+desparse_res# extract optimal results
 ```
 
 ## Bootstrap-calibrated R-Split
@@ -113,12 +111,12 @@ Bootstrap iteration is recommended to be B = 200, BB = 1000. Here we use B = 5 a
 rsplit_res <- BSSplitLasso(y = Y,
                            x = x, 
                            r = r, 
-                           G = w.index,B = 5, BB = 10)
+                           G = w.index,
+                           B = 5, BB = 10)
 ```
 
 
+### Result summary
 ```{r,cache=TRUE}
-opt_idx <- length(r) + 2 # optimal result index
-
-rsplit_res[[opt_idx]] # extract optimal results
+rsplit_res 
 ```

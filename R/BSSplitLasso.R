@@ -205,19 +205,19 @@ BSSplitLasso <- function(y, x,
   for(j in 1:(cc+1)) {
     result[j] <- list(c(BSciCoverfun(beta.lasso, TB[,j], G, alpha),
                         #betaEst = list(beta.lasso),
-                        op = rp[op]))
+                        op = r[op]))
   }
 
   if(is.integer(op) && length(op)==1){
 
     result[j+1] <- list(c(BSciCoverfun(beta.lasso, TB_op[,op],G, alpha),
                           #betaEst = list(beta.lasso),
-                          op = rp[op]))
+                          op = r[op]))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.lasso, TB[,cc], G, alpha),
                          #betaEst = list(beta.lasso),
-                          op = rp[op]))
+                          op = r[op]))
   }
-  return(result)
+  return(result[[12]])
 }
 

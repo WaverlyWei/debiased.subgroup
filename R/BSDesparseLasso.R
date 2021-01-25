@@ -154,17 +154,17 @@ BSDesparseLasso <- function(y, x,
 
     result[j] = list(c(BSciCoverfun(beta.Dlasso, TB[,j], G, alpha),
                        #betaEst = list(beta.Dlasso),
-                       op = rp[op]))
+                       op = r[op]))
   }
 
   if(is.integer(op)){
     result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB_op[,op], G, alpha),
                          #betaEst = list(beta.Dlasso),
-                         op = rp[op]))
+                         op = r[op]))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.Dlasso, TB[,cc], G, alpha),
                          #betaEst = list(beta.Dlasso),
-                         op = rp[op]))
+                         op = r[op]))
   }
-  return(result)
+  return(result[[12]])
 }
