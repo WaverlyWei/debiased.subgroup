@@ -24,8 +24,9 @@ library(subDebiased)
 ```
 
 We generate high-dimensional data with 2 subgroups of interest. We predefine a set of tuning parameters, denoted as $r$.
-```{r}
+```{r,warning=FALSE,message=FALSE}
   library(MASS)
+  library(glmnet)
 
   p <- 200 # number of confounders
 
@@ -89,8 +90,8 @@ We generate high-dimensional data with 2 subgroups of interest. We predefine a s
 ```
 
 ## Bootstrap-calibrated Desparsified Lasso
-Bootstrap iteration is recommended to be B = 200. Here we use B = 5 as a demo. 
-```{r,cache=TRUE}
+Bootstrap iterations are recommended to be B = 200. Here we use B = 5 for demonstration purpose. 
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
 desparse_res <- BSDesparseLasso(y = Y,
                                 x = x, 
                                 r = r, 
@@ -101,13 +102,13 @@ desparse_res <- BSDesparseLasso(y = Y,
 
 ### Result summary
 The tuning parameter is selected through `cvDesparse`
-```{r,cache=TRUE}
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
 desparse_res
 ```
 
 ## Bootstrap-calibrated R-Split
-Bootstrap iteration is recommended to be B = 200, BB = 1000. Here we use B = 5 and BB = 10 as a demo. The tuning parameter is selected through `cvSplit`
-```{r}
+Bootstrap iterations are recommended to be B = 200, BB = 1000. Here we use B = 5 and BB = 10 as demo. The tuning parameter is selected through `cvSplit`
+```{r,warning=FALSE,message=FALSE}
 rsplit_res <- BSSplitLasso(y = Y,
                            x = x, 
                            r = r, 
@@ -117,6 +118,6 @@ rsplit_res <- BSSplitLasso(y = Y,
 
 
 ### Result summary
-```{r,cache=TRUE}
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
 rsplit_res 
 ```
