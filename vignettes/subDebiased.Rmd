@@ -9,12 +9,12 @@ output:
     toc_depth: 3
 ---
 
-```{r, eval = FALSE}
+```{r, eval = FALSE,warning=FALSE,message=FALSE}
 devtools::install_github("WaverlyWei/subDebiased")
 )
 ```
 
-```{r}
+```{r, warning=FALSE,message=FALSE}
 library(subDebiased)
 library(MASS)
 ```
@@ -25,7 +25,6 @@ library(MASS)
 
   n <- 600 # sample size
   
-  ## Change to 2 for now ######
   ngroups <- 2 # number of subgroups/treatments;
   
   s0 <- 4
