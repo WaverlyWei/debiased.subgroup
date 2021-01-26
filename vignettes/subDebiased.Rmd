@@ -14,7 +14,6 @@ subDebiased is a package that implements two bootstrap-assisted estimators: boot
 ## Installation
 ```{r, eval = FALSE,warning=FALSE,message=FALSE}
 devtools::install_github("WaverlyWei/subDebiased")
-
 ```
 
 ## Quick start
@@ -101,7 +100,7 @@ desparse_res <- BSDesparseLasso(y = Y,
 
 
 ### Result summary
-The tuning parameter is selected through `cvDesparse`
+The tuning parameter is selected through `cvDesparse`.
 ```{r,cache=TRUE,warning=FALSE,message=FALSE}
 desparse_res$LowerBound
 ```
@@ -127,7 +126,7 @@ desparse_res$op
 
 
 ## Bootstrap-calibrated R-Split
-Bootstrap iterations are recommended to be B = 200, BB = 1000. Here we use B = 5 and BB = 10 as demo. The tuning parameter is selected through `cvSplit`
+Bootstrap iterations are recommended to be B = 200, BB = 1000. Here we use B = 5 and BB = 10 as demo. The tuning parameter is selected through `cvSplit`.
 
 ```{r,warning=FALSE,message=FALSE}
 rsplit_res <- BSSplitLasso(y = Y,
@@ -156,7 +155,7 @@ rsplit_res$betaMax
 rsplit_res$betaEst
 ```
 
-`modelSize` contains the refitting model size for each bootstrap iteration.
+`modelSize` contains the R-split model size for each bootstrap iteration.
 ```{r,cache=TRUE,warning=FALSE,message=FALSE}
 summary(rsplit_res$modelSize)
 ```

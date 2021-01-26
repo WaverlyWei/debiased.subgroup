@@ -22,6 +22,8 @@ BSDesparseLasso(y, x, r = NULL, G = NULL, B = NULL, alpha = 0.95, fold = 3)
 \value{
 \item{LowerBound}{lower confidence bound}
 \item{UpperBound}{upper confidence bound}
+\item{betaMax}{bias-reduced maximum beta estimate}
+\item{betaEst}{debiased beta estimate for each subgroup}
 \item{op}{optimal tuning}
 }
 \description{
