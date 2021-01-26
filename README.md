@@ -51,18 +51,19 @@ noise <- mvrnorm( n = 1, mu = rep(0,n), Sigma = diag(n) * noise.y )
 Y <- 0.5 + x %*% beta0 + noise
 r <- 1/(3*1:10)
     
-    desparse_res <- BSDesparseLasso(y = Y,
+desparse_res <- BSDesparseLasso(y = Y,
                                 x = x, 
                                 r = r, 
                                 G = w.index,
                                 B = 5)
-    desparse_res
-    rsplit_res <- BSSplitLasso(y = Y,
+desparse_res
+    
+rsplit_res <- BSSplitLasso(y = Y,
                            x = x, 
                            r = r, 
                            G = w.index,
                            B = 5, BB = 10)
-    rsplit_res                     
+rsplit_res                     
 ```
 
 ### References
