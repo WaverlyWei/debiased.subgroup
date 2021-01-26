@@ -29,16 +29,15 @@ m <- ngroups
 Sigma <- matrix(0,p,p)
 for (i in 1:n){
       for(j in 1:p){
-        Sigma[i,j] <- 0.5^(abs(i-j))
-      }
-    }
+        Sigma[i,j] <- 0.5^(abs(i-j))}
+}
+
 X <- mvrnorm( n = n, mu = rep(0,p), Sigma = Sigma )
 Z <- matrix(0,n,m)
 for(i in 1:n){
       for(j in 1:m){
-        Z[i,j] <- rbinom(1,1,exp(X[i,2*j-1] +X[i,2*j])/(1+exp(X[i,2*j-1]+ X[i,2*j])))
-      }
-    }
+        Z[i,j] <- rbinom(1,1,exp(X[i,2*j-1]   +X[i,2*j])/(1+exp(X[i,2*j-1]+ X[i,2*j])))}
+}
 noise.y <- 1
 betas <- 1
 w.index <- seq(1, m, 1) 
