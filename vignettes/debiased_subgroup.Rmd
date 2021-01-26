@@ -1,6 +1,6 @@
 ---
 title: "An Introduction to `debiased.subgroup`"
-author: "Waverly Wei and Jingshen Wang"
+author: "Waverly(Linqing) Wei and Jingshen Wang"
 date: "Jan.2021"
 output: 
   pdf_document:
