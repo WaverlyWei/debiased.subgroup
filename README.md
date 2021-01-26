@@ -20,8 +20,7 @@ The optimal tuning parameter for each method are selected via cross-validation:
 ## Example usage:
 
 ```R
-library(MASS)
-library(glmnet)
+library(debiased.subgroup)
 p <- 200
 n <- 100 
 ngroups <- 2 
