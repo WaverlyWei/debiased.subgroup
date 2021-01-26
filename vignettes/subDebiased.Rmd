@@ -103,11 +103,32 @@ desparse_res <- BSDesparseLasso(y = Y,
 ### Result summary
 The tuning parameter is selected through `cvDesparse`
 ```{r,cache=TRUE,warning=FALSE,message=FALSE}
-desparse_res
+desparse_res$LowerBound
 ```
+
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+desparse_res$UpperBound
+```
+
+`betaMax` is the bias-reduced maximum beta estimate.
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+desparse_res$betaMax
+```
+
+`betaEst` contains the beta estimate for each subgroup.
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+desparse_res$betaEst
+```
+
+`op` is the cross-validated optimal tuning.
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+desparse_res$op
+```
+
 
 ## Bootstrap-calibrated R-Split
 Bootstrap iterations are recommended to be B = 200, BB = 1000. Here we use B = 5 and BB = 10 as demo. The tuning parameter is selected through `cvSplit`
+
 ```{r,warning=FALSE,message=FALSE}
 rsplit_res <- BSSplitLasso(y = Y,
                            x = x, 
@@ -116,8 +137,31 @@ rsplit_res <- BSSplitLasso(y = Y,
                            B = 5, BB = 10)
 ```
 
-
 ### Result summary
 ```{r,cache=TRUE,warning=FALSE,message=FALSE}
-rsplit_res 
+rsplit_res$LowerBound
+```
+
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+rsplit_res$UpperBound
+```
+
+`betaMax` is the bias-reduced maximum beta estimate.
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+rsplit_res$betaMax
+```
+
+`betaEst` contains the beta estimate for each subgroup.
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+rsplit_res$betaEst
+```
+
+`modelSize` contains the refitting model size for each bootstrap iteration.
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+summary(rsplit_res$modelSize)
+```
+
+`op` is the cross-validated optimal tuning paramter
+```{r,cache=TRUE,warning=FALSE,message=FALSE}
+rsplit_res$op
 ```

@@ -20,6 +20,8 @@
 #' @return
 #' \item{LowerBound}{lower confidence bound}
 #' \item{UpperBound}{upper confidence bound}
+#' \item{betaMax}{bias-reduced maximum beta estimate}
+#' \item{betaEst}{debiased beta estimate for each subgroup}
 #' \item{op}{optimal tuning}
 #' @export
 BSSplitLasso <- function(y, x,
@@ -212,7 +214,7 @@ BSSplitLasso <- function(y, x,
 
   for(j in 1:(cc+1)) {
     result[j] <- list(c(BSciCoverfun(beta.lasso, TB[,j], G, alpha),
-                        modelSize = modelSize,
+                        modelSize = list(modelSize),
                         betaEst = list(beta.lasso),
                         op = r[op]))
   }
@@ -221,12 +223,12 @@ BSSplitLasso <- function(y, x,
 
     result[j+1] <- list(c(BSciCoverfun(beta.lasso, TB_op[,op],G, alpha),
                           betaEst = list(beta.lasso),
-                          modelSize = modelSize,
+                          modelSize = list(modelSize),
                           op = r[op]))
   }else{
     result[j+1] = list(c(BSciCoverfun(beta.lasso, TB[,cc], G, alpha),
                          betaEst = list(beta.lasso),
-                         modelSize = modelSize,
+                         modelSize = list(modelSize),
                          op = r[op]))
   }
   return(result[[12]])
