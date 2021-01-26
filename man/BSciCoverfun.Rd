@@ -13,7 +13,7 @@ BSciCoverfun(beta, TB = NULL, G = NULL, alpha = 0.95)
 
 \item{G}{indices of subgroups}
 
-\item{alpha:}{confidence level}
+\item{alpha}{confidence level}
 }
 \value{
 \item{LowerBound}{Lower confidence bound}
