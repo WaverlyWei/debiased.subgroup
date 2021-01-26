@@ -40,6 +40,7 @@ BSSplitLasso(
 \item{UpperBound}{upper confidence bound}
 \item{betaMax}{bias-reduced maximum beta estimate}
 \item{betaEst}{debiased beta estimate for each subgroup}
+\item{modelSize}{selected model size for R-split}
 \item{op}{optimal tuning}
 }
 \description{
