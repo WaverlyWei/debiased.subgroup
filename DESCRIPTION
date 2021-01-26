@@ -1,7 +1,7 @@
 Package: debiased.subgroup
 Title: Sharp Inference on Selected Subgroup in Observational Studies
 Version: 0.0.0.9000
-Author: Waverly(Linqing) Wei <linqing_wei@berkeley.edu>
+Author: Jingshen Wang <jingshenwang@berkeley.edu> and Waverly(Linqing) Wei, <linqing_wei@berkeley.edu> 
 Description: This package implements bootstrap-assisted desparsified Lasso and bootstrap-assisted R-split estimators on selected subgroup's treatment effect estimation. The implemented estimators remove the subgroup selection bias and the regularization bias induced by high-dimensional covariates. 
 License: GPL-2
 Encoding: UTF-8
