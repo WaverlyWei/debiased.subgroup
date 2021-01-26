@@ -1,5 +1,5 @@
 ---
-title: "An Introduction to `subDebiased`"
+title: "An Introduction to `debiased.subgroup`"
 author: "Waverly Wei"
 date: "Jan.2021"
 output: 
@@ -9,17 +9,17 @@ output:
     toc_depth: 3
 ---
 ## Introduction
-subDebiased is a package that implements two bootstrap-assisted estimators: bootstrap-assisted desparsified Lasso and R-split. The two methods remove the subgroup selection bias and regularization bias indeced by high-dimensional covariates. 
+`debiased.subgroup` is a package that implements two bootstrap-assisted estimators: bootstrap-assisted desparsified Lasso and R-split. The two methods remove the subgroup selection bias and regularization bias indeced by high-dimensional covariates. 
 
 ## Installation
 ```{r, eval = FALSE,warning=FALSE,message=FALSE}
-devtools::install_github("WaverlyWei/subDebiased")
+devtools::install_github("WaverlyWei/debiased.subgroup")
 ```
 
 ## Quick start
-First we load the `subDebiased` package:
+First we load the `debiased.subgroup` package:
 ```{r, warning=FALSE,message=FALSE}
-library(subDebiased)
+library(debiased.subgroup)
 ```
 
 We generate high-dimensional data with 2 subgroups of interest. We predefine a set of tuning parameters, denoted as $r$.
