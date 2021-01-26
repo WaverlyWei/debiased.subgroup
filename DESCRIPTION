@@ -1,4 +1,4 @@
-Package: subDebiased
+Package: debiased.subgroup
 Title: Sharp Inference on Selected Subgroup in Observational Studies
 Version: 0.0.0.9000
 Author: Waverly(Linqing) Wei <linqing_wei@berkeley.edu>
