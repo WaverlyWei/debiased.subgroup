@@ -67,14 +67,10 @@ rsplit_res
 ```
 
 ### References
+- Wang, J., He, X., and Xu, G. (2019). Debiased inference on treatment effect in a high dimensional model. Journal of the American Statistical Association.
 
-- Zhang, C.-H. and Zhang, S. S. (2014). Confidence intervals for low dimensional parameters in
-high dimensional linear models. Journal of the Royal Statistical Society: Series B (Statistical
-Methodology), 76(1):217-242.
+- Zhang, C.-H. and Zhang, S. S. (2014). Confidence intervals for low dimensional parameters in high dimensional linear models. Journal of the Royal Statistical Society: Series B (Statistical Methodology), 76(1):217-242.
 
-- Zhang, X. and Cheng, G. (2017). Simultaneous inference for high-dimensional linear models. Jour-
-nal of the American Statistical Association, 112(518):757-768.
+- Zhang, X. and Cheng, G. (2017). Simultaneous inference for high-dimensional linear models. Journal of the American Statistical Association, 112(518):757-768.
 
-- Wang, J., He, X., and Xu, G. (2019). Debiased inference on treatment effect in a high dimensional
-model. Journal of the American Statistical Association.
 
