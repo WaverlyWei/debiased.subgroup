@@ -43,11 +43,11 @@ betas <- 1
 w.index <- seq(1, m, 1) 
 x <- cbind(Z,X)
 
-beta <- c(rep(0,m-1),betas) 
+beta0 <- c(rep(0,m-1),betas) 
 gamma <- c(rep(1, s0), rep(0, p-s0)) 
 noise <- mvrnorm( n = 1, mu = rep(0,n), Sigma = diag(n) * noise.y )
 
-Y <- 0.5 + x %*% beta + noise
+Y <- 0.5 + x %*% beta0 + noise
 r <- 1/(3*1:10)
     
 desparse_res <- BSDesparseLasso(y = Y,
